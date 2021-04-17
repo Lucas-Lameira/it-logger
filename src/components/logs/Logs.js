@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
+
 import LogItem from './LogItem';
 import Preloader from '../layout/Preloader';
+import {getLogs} from '../../actions/logActions';
 
-export default function Logs() {
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+function Logs({logs, loading, getLogs}) {
+ 
   useEffect(() => {
     getLogs();
-  }, []);
+  }, []);  
 
-  async function getLogs() {
-    setLoading(true);
+  if(loading || logs === null) return <Preloader />
 
-    const response = await fetch('/logs');
-    const data = await response.json();
-
-    setLogs(data);
-    setLoading(false);
-  };
-
-  if(loading) return <Preloader />
-
-  return (
-    
+  return (    
     <ul className="collection with-header">
       <li className="collection-header"><h4 className="center">System Logs</h4></li>
       {!loading && logs.length === 0 
@@ -32,6 +22,15 @@ export default function Logs() {
         logs.map(log => <LogItem key={log.id} log={log}/>)
       )}
     </ul>
-    
-  )
-}
+  );
+};
+
+//describe what we wanna get from the state
+const mapStateToProps = state => ({
+  //log is the name of the prop, call whatever you want
+  //the log on state.log belongs to the reducer on reducers/index.js
+  logs: state.log.logs,
+  loading: state.log.loading
+})
+
+export default connect(mapStateToProps, {getLogs})(Logs);
