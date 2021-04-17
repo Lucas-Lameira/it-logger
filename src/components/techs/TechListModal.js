@@ -5,7 +5,7 @@ export default function TechListModal() {
   const [techs, setTechs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {   
     getTechs();
   }, []);
 
@@ -14,8 +14,7 @@ export default function TechListModal() {
 
     const response = await fetch('/techs');
     const data = await response.json();
-
-    console.log(data)
+    
     setTechs(data);
     setLoading(false);
   };
