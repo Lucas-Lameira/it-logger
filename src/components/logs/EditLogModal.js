@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {updateLog} from '../../actions/logActions';
 
 import M from 'materialize-css/dist/js/materialize.min.js';
+import TechSelectOptions from '../techs/TechSelectOptions';
 
 function EditLogModal ({current, updateLog}) {
   const [message, setMessage] = useState('');
@@ -32,9 +33,7 @@ function EditLogModal ({current, updateLog}) {
   function handleSubmit() {
     if(message === '' || tech === '') M.toast({html: 'Please enter a message and tech'});
 
-    else {
-      console.log('hello');
-      
+    else {            
       const updatedLog = {
         id: current.id,
         message,
@@ -42,7 +41,6 @@ function EditLogModal ({current, updateLog}) {
         tech,
         date: new Date
       };
-
 
       updateLog(updatedLog);
 
@@ -79,9 +77,7 @@ function EditLogModal ({current, updateLog}) {
               onChange={handTechSelect}
             >
               <option value="" disabled>Select Technician</option>            
-              <option value="um berto">um berto</option>            
-              <option value="dois berto">dois berto</option>            
-              <option value="tres berto">tres berto</option>            
+              <TechSelectOptions />    
             </select>
           </div>
         </div>

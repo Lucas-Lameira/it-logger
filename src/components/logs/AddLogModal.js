@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {addLog} from '../../actions/logActions';
-
 import M from 'materialize-css/dist/js/materialize.min.js';
-
+import TechSelectOptions from '../techs/TechSelectOptions';
 
 function AddLogModal({addLog}) {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
-  
 
   function handleMessageInput (event) {
     setMessage(event.target.value);
@@ -68,10 +66,8 @@ function AddLogModal({addLog}) {
               className="browser-default" 
               onChange={handTechSelect}
             >
-              <option value="" disabled>Select Technician</option>            
-              <option value="um berto">um berto</option>            
-              <option value="dois berto">dois berto</option>            
-              <option value="tres berto">tres berto</option>            
+              <option value="" disabled>Select Technician</option>              
+              <TechSelectOptions/>                  
             </select>
           </div>
         </div>
